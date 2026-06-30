@@ -1828,12 +1828,10 @@
           p.x = Math.random() * width;
           p.char = chars[Math.floor(Math.random() * chars.length)];
         }
-
-        ctx.font = \`\${p.size}px Cairo, sans-serif\`;
+        ctx.font = `${p.size}px Cairo, sans-serif`;
         ctx.fillStyle = isDark 
-          ? \`rgba(200, 170, 80, \${p.opacity})\` // Gold for dark mode
-          : \`rgba(40, 90, 60, \${p.opacity})\`; // Deep green for light mode
-        
+          ? `rgba(200, 170, 80, ${p.opacity})` // Gold for dark mode
+          : `rgba(40, 90, 60, ${p.opacity})`; // Deep green for light mode        
         ctx.fillText(p.char, p.x, p.y);
       }
       canvasAnimationId = requestAnimationFrame(draw);
