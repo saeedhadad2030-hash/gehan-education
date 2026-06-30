@@ -1,5 +1,5 @@
 window.APP_CONFIG = {
-  supabaseUrl: "https://fnjxqsnunkvnatkikxpq.supabase.co",
-  supabaseAnonKey: "sb_publishable_ChmQPqIbQYQ86S0QI0d5YQ_x8Kdzwhl",
-  whatsappNumber: "2001021381014"
+  supabaseUrl: "https://tqxcopvzepdhgjkygikq.supabase.co",
+  supabaseAnonKey: "sb_publishable_HF0FTzd83Xmh0b_P8O-Ylw_EpcfJD7Z",
+  whatsappNumber: "201095857040"
 };
