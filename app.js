@@ -377,7 +377,7 @@
         <div class="splash-content">
           ${logoSvg("brand-mark splash-logo")}
           <h1>چيهان البراوي</h1>
-          <p>تاريخ وجغرافيا بشكل أوضح</p>
+          <p>لغة عربية بشكل أوضح</p>
           <div class="splash-loader"></div>
         </div>
       </div>
@@ -508,7 +508,7 @@
             ${logoSvg("brand-mark")}
             <div>
               <h1>چيهان البراوي</h1>
-              <p>منصة التاريخ والجغرافيا</p>
+              <p>منصة اللغة العربية</p>
             </div>
           </div>
           <div class="tabs">
@@ -559,7 +559,7 @@
           ${logoSvg("brand-mark")}
           <div>
             <h2>چيهان البراوي</h2>
-            <p>تاريخ وجغرافيا</p>
+            <p>لغة عربية</p>
           </div>
         </div>
         ${renderMainNav("nav")}
@@ -590,7 +590,7 @@
           ${logoSvg("brand-mark")}
           <div class="brand-text">
             <h2>چيهان البراوي</h2>
-            <p>${isAdmin() ? "وضع المدرس" : "تاريخ وجغرافيا"}</p>
+            <p>${isAdmin() ? "وضع المدرس" : "لغة عربية"}</p>
           </div>
         </div>
         <div class="topbar-actions" style="display: flex; align-items: center; gap: 8px;">
@@ -695,8 +695,8 @@
     return `
       <section class="hero">
         <div class="hero-panel">
-          <span class="pill gold">منصة تاريخ وجغرافيا</span>
-          <h2>افهم التاريخ والجغرافيا من غير حفظ أعمى.</h2>
+          <span class="pill gold">منصة لغة عربية</span>
+          <h2>افهم اللغة العربية من غير حفظ أعمى.</h2>
           <p>كورسات منظمة، فيديوهات مرتبة حسب الأقسام، ومتابعة من چيهان البراوي للطلاب خطوة بخطوة.</p>
           <div class="hero-actions">
             <button class="btn gold" data-route="courses">تصفح الكورسات</button>
@@ -1169,7 +1169,7 @@
           </div>
           <div class="card">
             <h3>وصف المنصة</h3>
-            <p>منصة تعليمية لچيهان البراوي لشرح التاريخ والجغرافيا بأسلوب منظم وسهل، مع كورسات مدفوعة يتم تفعيلها يدويًا بعد التواصل.</p>
+            <p>منصة تعليمية لچيهان البراوي لشرح اللغة العربية بأسلوب منظم وسهل، مع كورسات مدفوعة يتم تفعيلها يدويًا بعد التواصل.</p>
             <button class="btn ghost" data-share>مشاركة الموقع</button>
           </div>
         </div>
@@ -1209,7 +1209,7 @@
             <h4>المعلومات الأساسية</h4>
           </div>
           <div class="admin-grid">
-            <label>اسم الكورس *<input class="field" name="title" required placeholder="مثال: تاريخ الصف الثالث الثانوي" /></label>
+            <label>اسم الكورس *<input class="field" name="title" required placeholder="مثال: لغة عربية الصف الثالث الثانوي" /></label>
             <label>الصف الدراسي
               <select class="select" name="grade" required>
                 <option value="">اختر الصف</option>
@@ -2819,7 +2819,7 @@
   }
 
   function shareSite() {
-    const data = { title: "منصة چيهان البراوي", text: "منصة التاريخ والجغرافيا", url: location.href };
+    const data = { title: "منصة چيهان البراوي", text: "منصة اللغة العربية", url: location.href };
     if (navigator.share) navigator.share(data);
     else navigator.clipboard.writeText(location.href).then(() => toast("تم نسخ رابط الموقع."));
   }

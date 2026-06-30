@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-label="چيهان البراوي - تاريخ وجغرافيا">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-label="چيهان البراوي - لغة عربية">
   <defs>
     <linearGradient id="gold" x1="30" x2="145" y1="20" y2="160" gradientUnits="userSpaceOnUse">
       <stop stop-color="#f3d27a"/>
@@ -16,5 +16,5 @@
     <path d="M70 56l8 14-8 17-8-17 8-14Z" fill="#8b5f35"/>
   </g>
   <text x="585" y="76" fill="#23312d" font-family="Tahoma, Arial, sans-serif" font-size="44" font-weight="700" text-anchor="end">چيهان البراوي</text>
-  <text x="585" y="122" fill="#2f5d50" font-family="Tahoma, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="end">تاريخ وجغرافيا | فهم، خرائط، وحكاية</text>
+  <text x="585" y="122" fill="#2f5d50" font-family="Tahoma, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="end">لغة عربية | نحو، نصوص، وبلاغة</text>
 </svg>
