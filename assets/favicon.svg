@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="چيهان البراوي">
+  <rect width="64" height="64" rx="16" fill="#2f5d50"/>
+  <path d="M17 42c7-5 21-5 30 0V19c-8-4-21-4-30 0v23Z" fill="#f3d27a"/>
+  <path d="M20 22c6-3 16-3 24 0M20 29c7-3 17-3 24 0M20 36c7-3 17-3 24 0" fill="none" stroke="#23312d" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="32" cy="31" r="9" fill="none" stroke="#8b5f35" stroke-width="2"/>
+  <path d="M32 23v16M24 31h16" stroke="#8b5f35" stroke-width="2" stroke-linecap="round"/>
+</svg>
