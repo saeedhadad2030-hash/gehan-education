@@ -1128,8 +1128,8 @@
         ${isAdmin() ? '' : `
         <div class="grid two">
           <form class="card form" data-support-form>
-            <label>الاسم<input class="field" name="name" required value="${escapeAttr(state.profile.full_name)}" /></label>
-            <label>البريد<input class="field" name="email" type="email" required value="${escapeAttr(state.profile.email)}" /></label>
+            <label>الاسم<input class="field" name="name" required readonly value="${escapeAttr(state.profile.full_name)}" style="opacity: 0.7; cursor: not-allowed;" /></label>
+            <label>البريد<input class="field" name="email" type="email" required readonly value="${escapeAttr(state.profile.email)}" style="opacity: 0.7; cursor: not-allowed;" /></label>
             <label>رسالتك<textarea class="textarea" name="message" required></textarea></label>
             <button class="btn gold" type="submit">إرسال</button>
           </form>
