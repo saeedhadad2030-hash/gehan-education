@@ -1758,7 +1758,7 @@ body.privacy-blur .video-protected iframe {
   background-size: cover;
   background-position: center;
   z-index: 1;
-  animation: bgZoomPan 40s ease-in-out infinite alternate;
+  animation: bgZoomPan 20s ease-in-out infinite alternate;
 }
 
 .bg-overlay {
@@ -1777,20 +1777,33 @@ body.dark .bg-overlay {
 
 @keyframes bgZoomPan {
   0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.08) translate(-1.5%, -1.5%); }
+  100% { transform: scale(1.15) translate(-3%, -3%); }
 }
 
 /* Auth Card Overrides */
 .relative-z {
   position: relative;
   z-index: 10;
-  background: rgba(255, 250, 240, 0.35); 
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.7); 
+  backdrop-filter: blur(12px);
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   margin: 20px;
   width: min(460px, calc(100% - 40px));
 }
 
+.relative-z .brand p,
+.relative-z .form label,
+.relative-z .auth-credit {
+  color: #111 !important;
+  font-weight: 900;
+}
+
 body.dark .relative-z {
-  background: rgba(30, 41, 59, 0.40);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+body.dark .relative-z .brand p,
+body.dark .relative-z .form label,
+body.dark .relative-z .auth-credit {
+  color: #fff !important;
 }
