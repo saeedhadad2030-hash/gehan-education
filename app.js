@@ -475,7 +475,8 @@
     const isLogin = state.authMode === "login";
     return `
       <div class="auth-wrap animated-auth">
-        <canvas id="arabicCanvas" class="arabic-canvas"></canvas>
+        <div class="arabic-concrete-bg"></div>
+        <div class="bg-overlay"></div>
         <section class="auth-card relative-z">
           <div class="brand">
             ${logoSvg("brand-mark")}
@@ -1763,9 +1764,7 @@
     `;
   }
 
-  let canvasAnimationId = null;
   function bindAuth() {
-    initArabicCanvas();
     if (!hasSupabase) return;
     document.querySelectorAll("[data-auth-tab]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1774,83 +1773,6 @@
       });
     });
     document.querySelector("[data-auth-form]").addEventListener("submit", handleAuthSubmit);
-  }
-
-  function initArabicCanvas() {
-    const canvas = document.getElementById("arabicCanvas");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    const orbs = [];
-    const numOrbs = Math.floor(width / 30); // Dynamic amount of orbs
-
-    for (let i = 0; i < numOrbs; i++) {
-      orbs.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
-        radius: Math.random() * 50 + 10,
-        hue: Math.random() * 20 + 35, // Gold / Amber hues (35-55)
-        alpha: Math.random() * 0.4 + 0.1
-      });
-    }
-
-    if (canvasAnimationId) cancelAnimationFrame(canvasAnimationId);
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.globalCompositeOperation = 'lighter';
-      
-      const isDark = document.body.classList.contains("dark");
-      
-      for (let i = 0; i < orbs.length; i++) {
-        const o = orbs[i];
-        o.x += o.vx;
-        o.y += o.vy;
-        
-        // Wrap around screen
-        if (o.x < -o.radius) o.x = width + o.radius;
-        if (o.x > width + o.radius) o.x = -o.radius;
-        if (o.y < -o.radius) o.y = height + o.radius;
-        if (o.y > height + o.radius) o.y = -o.radius;
-        
-        // Gentle pulse
-        o.alpha += (Math.random() - 0.5) * 0.01;
-        if (o.alpha > 0.6) o.alpha = 0.6;
-        if (o.alpha < 0.1) o.alpha = 0.1;
-        
-        const gradient = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.radius);
-        if (isDark) {
-          gradient.addColorStop(0, `hsla(${o.hue}, 80%, 60%, ${o.alpha})`);
-          gradient.addColorStop(1, `hsla(${o.hue}, 80%, 60%, 0)`);
-        } else {
-          gradient.addColorStop(0, `hsla(150, 70%, 30%, ${o.alpha * 0.6})`); // Darker green glow for light mode
-          gradient.addColorStop(1, `hsla(150, 70%, 30%, 0)`);
-        }
-        
-        ctx.beginPath();
-        ctx.arc(o.x, o.y, o.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      }
-      canvasAnimationId = requestAnimationFrame(draw);
-    }
-    draw();
-
-    window.addEventListener("resize", () => {
-      if (document.getElementById("arabicCanvas")) {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-      }
-    });
   }
 
   function bindGlobal() {
