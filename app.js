@@ -1370,7 +1370,7 @@
 
   function renderStudentsAdmin() {
     if (!isAdmin()) return empty("هذه الصفحة مخصصة للمدرس فقط.");
-    const students = state.data.profiles.filter((profile) => profile.role !== "admin");
+    const students = state.data.profiles.filter((profile) => profile.role !== "admin" && profile.email !== "gehanelberawy@gmail.com");
     return `
       <section>
         <div class="section-title">
