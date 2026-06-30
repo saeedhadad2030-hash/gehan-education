@@ -1786,19 +1786,18 @@
     canvas.width = width;
     canvas.height = height;
 
-    const chars = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي١٢٣٤٥٦٧٨٩٠".split("");
-    const particles = [];
-    const numParticles = Math.floor(width / 20);
+    const orbs = [];
+    const numOrbs = Math.floor(width / 30); // Dynamic amount of orbs
 
-    for (let i = 0; i < numParticles; i++) {
-      particles.push({
+    for (let i = 0; i < numOrbs; i++) {
+      orbs.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        speed: 0.5 + Math.random() * 1.5,
-        size: 14 + Math.random() * 24,
-        char: chars[Math.floor(Math.random() * chars.length)],
-        opacity: 0.1 + Math.random() * 0.5,
-        fadeSpeed: (Math.random() - 0.5) * 0.01
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        radius: Math.random() * 50 + 10,
+        hue: Math.random() * 20 + 35, // Gold / Amber hues (35-55)
+        alpha: Math.random() * 0.4 + 0.1
       });
     }
 
@@ -1806,33 +1805,39 @@
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      ctx.textAlign = "center";
+      ctx.globalCompositeOperation = 'lighter';
       
       const isDark = document.body.classList.contains("dark");
       
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.y -= p.speed;
-        p.opacity += p.fadeSpeed;
+      for (let i = 0; i < orbs.length; i++) {
+        const o = orbs[i];
+        o.x += o.vx;
+        o.y += o.vy;
         
-        if (p.opacity <= 0.1) {
-          p.opacity = 0.1;
-          p.fadeSpeed *= -1;
-        } else if (p.opacity >= 0.8) {
-          p.opacity = 0.8;
-          p.fadeSpeed *= -1;
+        // Wrap around screen
+        if (o.x < -o.radius) o.x = width + o.radius;
+        if (o.x > width + o.radius) o.x = -o.radius;
+        if (o.y < -o.radius) o.y = height + o.radius;
+        if (o.y > height + o.radius) o.y = -o.radius;
+        
+        // Gentle pulse
+        o.alpha += (Math.random() - 0.5) * 0.01;
+        if (o.alpha > 0.6) o.alpha = 0.6;
+        if (o.alpha < 0.1) o.alpha = 0.1;
+        
+        const gradient = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.radius);
+        if (isDark) {
+          gradient.addColorStop(0, `hsla(${o.hue}, 80%, 60%, ${o.alpha})`);
+          gradient.addColorStop(1, `hsla(${o.hue}, 80%, 60%, 0)`);
+        } else {
+          gradient.addColorStop(0, `hsla(150, 70%, 30%, ${o.alpha * 0.6})`); // Darker green glow for light mode
+          gradient.addColorStop(1, `hsla(150, 70%, 30%, 0)`);
         }
-
-        if (p.y < -50) {
-          p.y = height + 50;
-          p.x = Math.random() * width;
-          p.char = chars[Math.floor(Math.random() * chars.length)];
-        }
-        ctx.font = `${p.size}px Cairo, sans-serif`;
-        ctx.fillStyle = isDark 
-          ? `rgba(200, 170, 80, ${p.opacity})` // Gold for dark mode
-          : `rgba(40, 90, 60, ${p.opacity})`; // Deep green for light mode        
-        ctx.fillText(p.char, p.x, p.y);
+        
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.radius, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
       }
       canvasAnimationId = requestAnimationFrame(draw);
     }
