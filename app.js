@@ -475,34 +475,7 @@
     const isLogin = state.authMode === "login";
     return `
       <div class="auth-wrap animated-auth">
-        <div class="scenery-bg">
-          <div class="sky-gradient"></div>
-          <div class="stars"></div>
-          <div class="smoke-container">
-            <div class="smoke s1"></div>
-            <div class="smoke s2"></div>
-            <div class="smoke s3"></div>
-            <div class="smoke s4"></div>
-          </div>
-          <div class="fire-container">
-            <div class="fire f1"></div>
-            <div class="fire f2"></div>
-            <div class="fire f3"></div>
-            <div class="fire f4"></div>
-            <div class="fire f5"></div>
-          </div>
-          <svg class="silhouettes" viewBox="0 0 1000 300" preserveAspectRatio="none">
-            <!-- Ground -->
-            <path class="ground" d="M0,300 L1000,300 L1000,200 L0,200 Z" opacity="0.8"/>
-            <path class="ground-dark" d="M0,300 L0,250 L100,280 L200,240 L350,300 Z" opacity="0.6"/>
-            <path class="ground-dark" d="M1000,300 L1000,230 L900,270 L800,220 L650,300 Z" opacity="0.6"/>
-            <!-- Volcano Base -->
-            <path class="volcano-base" d="M150,300 L450,80 L550,80 L850,300 Z" opacity="0.9"/>
-            <path class="volcano-shade" d="M500,80 L550,80 L850,300 L500,300 Z" opacity="0.3"/>
-            <!-- Crater / Lava Spill -->
-            <path fill="#ff4500" d="M450,80 Q500,100 550,80 L530,150 Q500,180 470,150 Z" class="lava-glow"/>
-          </svg>
-        </div>
+        <canvas id="arabicCanvas" class="arabic-canvas"></canvas>
         <section class="auth-card relative-z">
           <div class="brand">
             ${logoSvg("brand-mark")}
@@ -1790,7 +1763,9 @@
     `;
   }
 
+  let canvasAnimationId = null;
   function bindAuth() {
+    initArabicCanvas();
     if (!hasSupabase) return;
     document.querySelectorAll("[data-auth-tab]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1799,6 +1774,80 @@
       });
     });
     document.querySelector("[data-auth-form]").addEventListener("submit", handleAuthSubmit);
+  }
+
+  function initArabicCanvas() {
+    const canvas = document.getElementById("arabicCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const chars = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي١٢٣٤٥٦٧٨٩٠".split("");
+    const particles = [];
+    const numParticles = Math.floor(width / 20);
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        speed: 0.5 + Math.random() * 1.5,
+        size: 14 + Math.random() * 24,
+        char: chars[Math.floor(Math.random() * chars.length)],
+        opacity: 0.1 + Math.random() * 0.5,
+        fadeSpeed: (Math.random() - 0.5) * 0.01
+      });
+    }
+
+    if (canvasAnimationId) cancelAnimationFrame(canvasAnimationId);
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.textAlign = "center";
+      
+      const isDark = document.body.classList.contains("dark");
+      
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.y -= p.speed;
+        p.opacity += p.fadeSpeed;
+        
+        if (p.opacity <= 0.1) {
+          p.opacity = 0.1;
+          p.fadeSpeed *= -1;
+        } else if (p.opacity >= 0.8) {
+          p.opacity = 0.8;
+          p.fadeSpeed *= -1;
+        }
+
+        if (p.y < -50) {
+          p.y = height + 50;
+          p.x = Math.random() * width;
+          p.char = chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        ctx.font = \`\${p.size}px Cairo, sans-serif\`;
+        ctx.fillStyle = isDark 
+          ? \`rgba(200, 170, 80, \${p.opacity})\` // Gold for dark mode
+          : \`rgba(40, 90, 60, \${p.opacity})\`; // Deep green for light mode
+        
+        ctx.fillText(p.char, p.x, p.y);
+      }
+      canvasAnimationId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener("resize", () => {
+      if (document.getElementById("arabicCanvas")) {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+    });
   }
 
   function bindGlobal() {
