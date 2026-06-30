@@ -2111,7 +2111,7 @@
       id: user.id,
       full_name: name || user.user_metadata?.full_name || user.email.split("@")[0],
       email: user.email,
-      role: "student",
+      role: user.email === "gehanelberawy@gmail.com" ? "admin" : "student",
       login_password: user.user_metadata?.login_password || "",
       phone: phone || user.user_metadata?.phone || "",
       grade: grade || user.user_metadata?.grade || user.user_metadata?.semester || "",
@@ -2746,7 +2746,7 @@
   }
 
   function isAdmin() {
-    return state.profile?.role === "admin";
+    return state.profile?.role === "admin" || state.profile?.email === "gehanelberawy@gmail.com";
   }
 
   function canAccessCourse(courseId) {

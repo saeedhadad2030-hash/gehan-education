@@ -262,7 +262,7 @@ button {
   color: var(--white);
   background:
     linear-gradient(135deg, rgba(35, 49, 45, 0.92), rgba(47, 93, 80, 0.84)),
-    url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80");
+    url("./assets/arabic_bg.png");
   background-position: center;
   background-size: cover;
   box-shadow: var(--shadow);
